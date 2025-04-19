@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMD</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+            color: green;
+            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #cmd {
+            border: 1px solid green;
+            padding: 10px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            width: 100%;
+            background-color: black;
+            color: green;
+            border: none;
+            outline: none;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="cmd">
+        <div id="output"></div>
+        <input type="text" id="input" autofocus />
+    </div>
+
+    <script>
+        const input = document.getElementById('input');
+        const output = document.getElementById('output');
+
+        // Initial message
+        const initialMessage = document.createElement('div');
+        initialMessage.textContent = '2025 listn CORPORATION.\nTry using "!help"';
+        output.appendChild(initialMessage);
+
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const command = input.value.trim();
+                processCommand(command);
+                input.value = '';
+            }
+        });
+
+        function processCommand(command) {
+            const response = document.createElement('div');
+            response.textContent = `> ${command}`; // Show the command entered
+            output.appendChild(response);
+
+            let outputMessage;
+            if (command === '!help') {
+                outputMessage = 'Available commands: !links, !discord, !website, !server, !about';
+            } else if (command === '!links') {
+                outputMessage = `
+                https://listn.dev
+                https://fakecrime.bio/listn
+                https://fatality.win/members/listn.32946/
+                https://steamcommunity.com/id/0ot5/
+                `;
+            } else if (command === '!discord') {
+                outputMessage = 'Discord username: 2y6p';
+            } else if (command === '!website') {
+                outputMessage = 'https://listn.dev/';
+            } else if (command === '!server') {
+                outputMessage = 'https://discord.gg/xAFYfCDzxS';
+            } else if (command === '!about') {
+                outputMessage = 'Some random ass nn...';
+            } else {
+                outputMessage = 'Unknown command. Type !help for a list of commands.';
+            }
+
+            const outputResponse = document.createElement('div');
+            outputResponse.textContent = outputMessage.trim(); // Trim to remove extra spaces
+            output.appendChild(outputResponse);
+            output.scrollTop = output.scrollHeight; // Scroll to the bottom
+        }
+    </script>
+</body>
+</html>
